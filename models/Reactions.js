@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types } = require('mongoose');
 
 // formats the date in the createdAt property
 const formatDate = function(date) {
@@ -14,7 +14,7 @@ const reactionSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId,
-            default: () => new mongoose.Types.ObjectId(),
+            default: () => new Types.ObjectId(),
         },
         reactionBody: {
             type: String,
@@ -41,7 +41,4 @@ const reactionSchema = new Schema(
     }
 );
 
-// Initialize Reaction to be used as a subdocument in the Thought model
-const Reaction = model('reaction', reactionSchema);
-
-module.exports = Reaction;
+module.exports = reactionSchema;

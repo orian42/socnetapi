@@ -86,56 +86,42 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    // // Add friend to a specific user
-    // async addFriend(req, res) {
-    //     try {
-    //         const friend = await User.findOne({ _id: req.params.friendId });
+    // Add a reaction to a specific thought
+    async addReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $addToSet: { reactions: req.body } },
+                { new: true }
+            )
 
-    //         if (!friend) {
-    //             return res.status(404).json({ message: 'No friend-user with this id!' });
-    //         }
+            if (!thought) {
+                return res
+                    .status(404)
+                    .json({ message: 'Attempted to add reaction but no thought with this id!' });
+            }
 
-    //         const user = await User.findOneAndUpdate(
-    //             { _id: req.params.userId },
-    //             { $push: { friends: req.params.friendId } },
-    //             { new: true }
-    //         );
+            res.json({ message: 'Reaction successfully added!' });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    // Remove a single reaction by its ID value
+    async removeReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
+                { runValidators: true, new: true }
+            )
 
-    //         if (!user) {
-    //             return res
-    //                 .status(404)
-    //                 .json({ message: 'Attempted to add friend but no user with this id!' });
-    //         }
+            if (!thought) {
+                return res.status(404).json({ message: 'No thought with this id!' });
+            }
 
-    //         res.json({ message: 'Friend successfully added!' });
-    //     } catch (err) {
-    //         res.status(500).json(err);
-    //     }
-    // },
-    //     // Remove a singgle friend by their ID from a specific user
-    //     async removeFriend(req, res) {
-    //         try {
-    //             const friend = await User.findOne({ _id: req.params.friendId });
-
-    //             if (!friend) {
-    //                 return res.status(404).json({ message: 'No friend-user with this id!' });
-    //             }
-
-    //             const user = await User.findOneAndUpdate(
-    //                 { _id: req.params.userId },
-    //                 { $pull: { friends: req.params.friendId } },
-    //                 { new: true }
-    //             );
-
-    //             if (!user) {
-    //                 return res
-    //                     .status(404)
-    //                     .json({ message: 'Attempted to remove friend but no user with this id!' });
-    //             }
-
-    //             res.json({ message: 'Friend successfully removed!' });
-    //         } catch (err) {
-    //             res.status(500).json(err);
-    //         }
-    //     },
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
 }
