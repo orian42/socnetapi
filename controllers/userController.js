@@ -71,7 +71,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    // Add friend to user
+    // Add friend to a specific user
     async addFriend(req, res) {
         try {
             const friend = await User.findOne({ _id: req.params.friendId });
@@ -97,7 +97,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-        // Remove friend from user
+        // Remove a singgle friend by their ID from a specific user
         async removeFriend(req, res) {
             try {
                 const friend = await User.findOne({ _id: req.params.friendId });
