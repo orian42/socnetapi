@@ -35,58 +35,57 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    // // Find a single user by their ID
-    // async getSingleUser(req, res) {
-    //     try {
-    //         const user = await User.findOne({ _id: req.params.userId })
-    //             .select('-__v');
+    // Find a single thought by its ID
+    async getSingleThought(req, res) {
+        try {
+            const thought = await Thought.findOne({ _id: req.params.thoughtId })
+                .select('-__v');
 
-    //         if (!user) {
-    //             return res.status(404).json({ message: 'No user with that ID' });
-    //         }
+            if (!thought) {
+                return res.status(404).json({ message: 'No thought with that ID' });
+            }
 
-    //         res.json(user);
-    //     } catch (err) {
-    //         res.status(500).json(err);
-    //     }
-    // },
-    // // Update a user by their ID
-    // async updateUser(req, res) {
-    //     try {
-    //         const user = await User.updateOne({ _id: req.params.userId },
-    //             {
-    //                 $set: {
-    //                     "username": req.body.username,
-    //                     "email": req.body.email,
-    //                 }
-    //             }
-    //         )
-    //             .select('-__v');
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    // Update a thought by its ID
+    async updateThought(req, res) {
+        try {
+            const thought = await Thought.updateOne({ _id: req.params.thoughtId },
+                {
+                    $set: {
+                        "thoughtText": req.body.thoughtText,
+                    }
+                }
+            )
+                .select('-__v');
 
-    //         if (!user) {
-    //             return res.status(404).json({ message: 'No user with that ID' });
-    //         }
+            if (!thought) {
+                return res.status(404).json({ message: 'No thought with that ID' });
+            }
 
-    //         res.json(user);
-    //     } catch (err) {
-    //         res.status(500).json(err);
-    //     }
-    // },
-    // // Delete a single user by their ID
-    // async deleteUser(req, res) {
-    //     try {
-    //         const user = await User.deleteOne({ _id: req.params.userId })
-    //             .select('-__v');
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    // Delete a single thought by its ID
+    async deleteThought(req, res) {
+        try {
+            const thought = await Thought.deleteOne({ _id: req.params.thoughtId })
+                .select('-__v');
 
-    //         if (!user) {
-    //             return res.status(404).json({ message: 'No user with that ID' });
-    //         }
+            if (!thought) {
+                return res.status(404).json({ message: 'No thought with that ID' });
+            }
 
-    //         res.json(user);
-    //     } catch (err) {
-    //         res.status(500).json(err);
-    //     }
-    // },
+            res.json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
     // // Add friend to a specific user
     // async addFriend(req, res) {
     //     try {
