@@ -23,7 +23,9 @@ module.exports = {
     async getSingleUser(req, res) {
         try {
             const user = await User.findOne({ _id: req.params.userId })
-                .select('-__v');
+                .select('-__v')
+                .populate('thoughts')
+                .populate('friends');
 
             if (!user) {
                 return res.status(404).json({ message: 'No user with that ID' });
@@ -97,30 +99,30 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-        // Remove a singgle friend by their ID from a specific user
-        async removeFriend(req, res) {
-            try {
-                const friend = await User.findOne({ _id: req.params.friendId });
-    
-                if (!friend) {
-                    return res.status(404).json({ message: 'No friend-user with this id!' });
-                }
-    
-                const user = await User.findOneAndUpdate(
-                    { _id: req.params.userId },
-                    { $pull: { friends: req.params.friendId } },
-                    { new: true }
-                );
-    
-                if (!user) {
-                    return res
-                        .status(404)
-                        .json({ message: 'Attempted to remove friend but no user with this id!' });
-                }
-    
-                res.json({ message: 'Friend successfully removed!' });
-            } catch (err) {
-                res.status(500).json(err);
+    // Remove a singgle friend by their ID from a specific user
+    async removeFriend(req, res) {
+        try {
+            const friend = await User.findOne({ _id: req.params.friendId });
+
+            if (!friend) {
+                return res.status(404).json({ message: 'No friend-user with this id!' });
             }
-        },
+
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $pull: { friends: req.params.friendId } },
+                { new: true }
+            );
+
+            if (!user) {
+                return res
+                    .status(404)
+                    .json({ message: 'Attempted to remove friend but no user with this id!' });
+            }
+
+            res.json({ message: 'Friend successfully removed!' });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
 }
