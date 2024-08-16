@@ -1,12 +1,9 @@
 const { Schema, Types } = require('mongoose');
+const { format }  = require('date-fns');
 
 // formats the date in the createdAt property
 const formatDate = function(date) {
-    return date.toLocaleDateString('en-us', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
+    return format(date, 'MM/dd/yyyy @ HH:mm:ss');
 };
 
 // Schema to create Reaction schema
