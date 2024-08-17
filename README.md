@@ -34,7 +34,7 @@ This is a back-end code that requires local installation to operate.  This can b
   
 After installing the app, open a terminal such as GitBash and navigate to the cloned repository.  Type <code>npm start</code> to start the server.  Because this is a back-end application, you will need to utilize Insomnia to view data.  
 
-A full demonstration of the functionality of this app can be viewed by watching the video linked here: https://drive.google.com/file/d/1qIFEke7PkO3fKCHW0FqJyjtNJyAXL12g/view.
+A full demonstration of the functionality of this app can be viewed by watching the video linked here: https://drive.google.com/file/d/1rxgm-vj7RxmQzaPf0qcsVq38_a1PQKSk/view?usp=drive_link.
 
 The following routes can be used to create, read, update or view the data in the app.  Some of the routes have parameters that should be utilized as follows:
 
