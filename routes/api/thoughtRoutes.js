@@ -1,3 +1,4 @@
+// routes for thoughts and reactions
 const router = require('express').Router();
 const {
     getThoughts,

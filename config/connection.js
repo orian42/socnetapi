@@ -1,3 +1,4 @@
+// this is the setup to connect to the mongoDB database using Mongoose
 const { connect, connection } = require('mongoose');
 
 const mongoURI = 'mongodb://127.0.0.1:27017/socNetAPI';

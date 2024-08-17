@@ -1,3 +1,4 @@
+// routes for the users and friends
 const router = require('express').Router();
 const {
     getUsers,

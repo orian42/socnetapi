@@ -1,3 +1,4 @@
+// Server setup
 const express = require('express');
 const db = require('./config/connection');  //connection to MongoDB
 const routes = require('./routes');
